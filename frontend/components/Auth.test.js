@@ -84,17 +84,16 @@ describe('Auth component', () => {
   }
   
   test('[7] Logging out a logged-in user displays goodbye message and renders form', async () => {
-    await user.type(userInput, 'Shakira');
-    await user.type(passInput, 'Suerte1977%');
+    await user.type(userInput, username);
+    await user.type(passInput, password);
     await user.click(loginBtn);
   
-    await waitFor(() => expect(screen.getByText('Welcome back, Shakira. We LOVE you!')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('Welcome back, ${username} We LOVE you!')).toBeInTheDocument());
   
     const logoutBtn = screen.getByTestId('logoutBtn');
     await user.click(logoutBtn);
   
     await waitFor(() => expect(screen.getByText('Goodbye!')).toBeInTheDocument());
     expect(screen.getByTestId('loginForm')).toBeInTheDocument();
-    
-}); 
+  });
 })
